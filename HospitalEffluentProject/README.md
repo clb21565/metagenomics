@@ -1,1 +1,1 @@
-Here are scripts used in Brown & Maile-Moskowitz paper on hospital effluent's impact on sequencing batch reactor performance. 
+Here are scripts used in Brown & Maile-Moskowitz papers on hospital effluent impacted sequencing batch reactors.
