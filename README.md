@@ -1,8 +1,9 @@
 ## metagenomics scripts repository for environmental microbiome projects
+hi there internet, you found my repository. I am just putting stuff here to store scripts for publications and share with labmates. 
 
 
-### Helpful scripts for metagenomics
-just a compilation of helpful bash exploits. 
+
+#### just a compilation of helpful bash exploits
 
 | function  | code |
 | ------------------------ | -------------------- |
