@@ -1,4 +1,7 @@
-# Helpful scripts for metagenomics
+## metagenomics scripts repository for environmental microbiome projects
+
+
+### Helpful scripts for metagenomics
 just a compilation of helpful bash exploits. 
 
 | function  | code |
