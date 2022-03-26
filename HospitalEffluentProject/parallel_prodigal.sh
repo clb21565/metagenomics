@@ -7,7 +7,7 @@
 
 module load parallel/20180222
 
-function hmmer() {
+function pprodigal() {
     n=$(basename "$1")
     prodigal -a ${1}.faa -d ${1}.fna -p meta -i $1
 }
