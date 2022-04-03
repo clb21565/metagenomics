@@ -11,4 +11,4 @@ hi there internet, you found my repository. I am just putting stuff here to stor
 | Remove redundant entries from a multifasta file.   | awk '/^>/{f=!d[$1];d[$1]=1}f' singleline.fasta > singleline.unique.fasta  |
 | Convert multiline fasta to single line. |  awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);} END {printf("\n");}' < multi.fasta \| tail -n+2 > single.fasta |
 | select all entries from a gtdbtk MSA file that match a pattern | grep -A 1 "p__Myxo" --no-group-separator gtdbtk.bac120.msa.fasta > bins.txt | 
-
+| remove prodigal metadata from faa header | sed 's/\ .*$//' input.faa > input_red.faa |
