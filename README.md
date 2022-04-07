@@ -12,3 +12,5 @@ hi there internet, you found my repository. I am just putting stuff here to stor
 | Convert multiline fasta to single line. |  awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);} END {printf("\n");}' < multi.fasta \| tail -n+2 > single.fasta |
 | select all entries from a gtdbtk MSA file that match a pattern | grep -A 1 "p__Myxo" --no-group-separator gtdbtk.bac120.msa.fasta > bins.txt | 
 | remove prodigal metadata from faa header | sed 's/\ .*$//' input.faa > input_red.faa |
+| convert single line fasta to tsv file | awk '/^>/ {printf("%s%s\t",(N>0?"\n":""),$0);N++;next;} {printf("%s",$0);} END {printf("\n");}' < input.single.fasta > input.tsv |
+
