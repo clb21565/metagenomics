@@ -1,0 +1,73 @@
+############## The code below was used to read in and work with the CARD/MGE/VFs/MRG data. Don't touch. 
+```{r}
+ReadinReadMapping=function(path){
+  setwd(path)
+  ls=list.files(path)
+  innerfx=function(fn){
+    idf=fread(fn)
+    idf$Sample=as.character(fn)
+    return(idf)} 
+  odf=ldply(lapply(ls,innerfx))
+  return(odf)
+}
+
+ARGs=ReadinReadMapping("/work/cascades/clb21565/WW_Analysis/hsp/readmapping/CARD")
+MGEs=ReadinReadMapping("/work/cascades/clb21565/WW_Analysis/hsp/readmapping/mobileOG-db.beatrix1.3/")
+MRGs=ReadinReadMapping("/work/cascades/clb21565/WW_Analysis/hsp/readmapping/ExperimentalMRGs/")
+```
+
+```{r}
+ARGs=ARGs[,-c(15,16)]
+colnames(ARGs)=c("qseqid","sseqid","slen","qlen","evalue","bitscore","len","pident","mismatch","positive","gaps","qtitle","stitle","sample")
+ARGs=ARGs%>%subset(pident>80)
+ARG_Lengths=unique(ARGs[,c("sseqid","slen")])
+ARG_Lengths$subject_length=as.numeric(ARG_Lengths$slen)*3
+ARG_Lengths%>%write.csv("~/ARG_lengths.csv")
+```
+
+```{r}
+ggplot(ARGs,aes(len))+geom_histogram(color='black',fill='white',bins = 50)
+```
+
+```{r}
+ARGs%>%
+  count(stitle,sample,sort=TRUE)%>%
+  write.csv("/work/cascades/clb21565/WW_Analysis/hsp/readmapping/CARD_Summary.csv",row.names = FALSE)
+```
+
+```{r}
+colnames(MGEs)=c("qseqid","sseqid","slen","qlen","evalue","bitscore","len","pident","mismatch","positive","gaps","qtitle","stitle","sample")
+
+MGEs=MGEs%>%subset(pident>80)
+```
+
+```{r}
+MGEs%>%
+  count(stitle,sample,sort=TRUE)%>%
+  write.csv("/work/cascades/clb21565/WW_Analysis/hsp/readmapping/mobileOGs_Summary.csv",row.names = FALSE)
+```
+
+```{r}
+colnames(MRGs)=c("qseqid","sseqid","slen","qlen","evalue","bitscore","len","pident","mismatch","positive","gaps","qtitle","stitle","sample")
+
+unique(MRGs[,c("sseqid","slen")])%>%
+  write.csv("~/MRG_lens.csv")
+MRGs=MRGs%>%subset(pident>80)
+```
+
+```{r}
+MRGs%>%
+  count(stitle,sample,sort=TRUE)%>%
+  write.csv("/work/cascades/clb21565/WW_Analysis/hsp/readmapping/MRGs_Summary.csv",row.names = FALSE)
+```
+
+```{r}
+VFs=ReadinReadMapping("/work/cascades/clb21565/WW_Analysis/hsp/readmapping/VFDB")
+colnames(VFs)=c("qseqid","sseqid","slen","qlen","evalue","bitscore","len","pident","mismatch","positive","gaps","qtitle","stitle","sample")
+
+VFs=VFs%>%subset(pident>80)
+
+VFs%>%
+  count(stitle,sample,sort=TRUE)%>%
+  write.csv("/work/cascades/clb21565/WW_Analysis/hsp/readmapping/VFs_Summary.csv",row.names = FALSE)
+```
